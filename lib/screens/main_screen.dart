@@ -20,8 +20,8 @@ class _MainPageState extends State<MainPage> {
   void getCurrencies() async {
     http.Response response = await http.get(MainPage.url);
     Map<String, dynamic> data = json.decode(response.body);
-    d = data;
     setState(() {
+      d = data;
       symbol = data[country]['symbol'];
       price = data[country]['buy'];
     });
@@ -29,6 +29,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    getCurrencies();
     return Scaffold(
       appBar: AppBar(
         title: Text('Cyptocurrency Converter'),
@@ -59,71 +60,18 @@ class _MainPageState extends State<MainPage> {
             builder: (BuildContext bc) {
               return Container(
                 color: ThemeData.dark().primaryColor,
-                child: Wrap(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Center(
-                        child: Container(
-                          height: 10,
-                          width: 70,
-                          color: ThemeData.dark().accentColor,
-                        ),
-                      ),
-                    ),
-                    // ListView.builder(
-                    //   itemCount: d.length,
-                    //   itemBuilder: (context, index) {
-                    //     return ListTile(
-                    //       leading: Icon(Icons.emoji_flags),
-                    //       title: Text('Country'),
-                    //       onTap: () {
-                    //         country = d[index];
-                    //         getCurrencies();
-                    //       },
-                    //     );
-                    //   },
-                    // ),
-                    ListTile(
-                        leading: new Icon(Icons.emoji_flags),
-                        title: new Text('Brasil'),
-                        onTap: () {
-                          country = 'BRL';
-                          getCurrencies();
-                        }),
-                    ListTile(
-                      leading: new Icon(Icons.emoji_flags),
-                      title: new Text('England'),
+                child: ListView.builder(
+                  itemCount: d.length,
+                  itemBuilder: (context, index) {
+                    var k = d.keys.toList();
+                    return ListTile(
+                      leading: Icon(Icons.emoji_flags),
+                      title: Text(k[index]),
                       onTap: () {
-                        country = 'GBP';
-                        getCurrencies();
+                        country = k[index];
                       },
-                    ),
-                    ListTile(
-                      leading: new Icon(Icons.emoji_flags),
-                      title: new Text('UK'),
-                      onTap: () {
-                        country = 'GBP';
-                        getCurrencies();
-                      },
-                    ),
-                    ListTile(
-                      leading: new Icon(Icons.emoji_flags),
-                      title: new Text('Europe'),
-                      onTap: () {
-                        country = 'EUR';
-                        getCurrencies();
-                      },
-                    ),
-                    ListTile(
-                      leading: new Icon(Icons.emoji_flags),
-                      title: new Text('United States of America'),
-                      onTap: () {
-                        country = 'USD';
-                        getCurrencies();
-                      },
-                    ),
-                  ],
+                    );
+                  },
                 ),
               );
             },
