@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-// import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 
-// import 'dart:convert';
+import 'dart:convert';
 
 class MainPage extends StatefulWidget {
   static var url = Uri.parse("https://blockchain.info/ticker");
@@ -12,13 +12,20 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  // Future<Map<String, dynamic>> getCurrencies() async {
-  //   http.Response response = await http.get(MainPage.url);
-  //   Map<String, dynamic> data = json.decode(response.body);
-  //   return data;
-  // }
+  String symbol = '';
+  String country = 'USD';
+  double price = 0.0;
+  Map<String, dynamic> d = Map<String, dynamic>();
 
-  // var auxiliar = getCurrencies();
+  void getCurrencies() async {
+    http.Response response = await http.get(MainPage.url);
+    Map<String, dynamic> data = json.decode(response.body);
+    d = data;
+    setState(() {
+      symbol = data[country]['symbol'];
+      price = data[country]['buy'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +45,7 @@ class _MainPageState extends State<MainPage> {
           Column(
             children: [
               SizedBox(height: 17.0),
-              Text('Convencional'),
+              Text('Convencional ─ $symbol'),
             ],
           ),
         ],
@@ -64,19 +71,57 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ),
                     ),
+                    // ListView.builder(
+                    //   itemCount: d.length,
+                    //   itemBuilder: (context, index) {
+                    //     return ListTile(
+                    //       leading: Icon(Icons.emoji_flags),
+                    //       title: Text('Country'),
+                    //       onTap: () {
+                    //         country = d[index];
+                    //         getCurrencies();
+                    //       },
+                    //     );
+                    //   },
+                    // ),
                     ListTile(
                         leading: new Icon(Icons.emoji_flags),
                         title: new Text('Brasil'),
-                        onTap: () => {}),
+                        onTap: () {
+                          country = 'BRL';
+                          getCurrencies();
+                        }),
                     ListTile(
                       leading: new Icon(Icons.emoji_flags),
                       title: new Text('England'),
-                      onTap: () => {},
+                      onTap: () {
+                        country = 'GBP';
+                        getCurrencies();
+                      },
                     ),
                     ListTile(
                       leading: new Icon(Icons.emoji_flags),
                       title: new Text('UK'),
-                      onTap: () => {},
+                      onTap: () {
+                        country = 'GBP';
+                        getCurrencies();
+                      },
+                    ),
+                    ListTile(
+                      leading: new Icon(Icons.emoji_flags),
+                      title: new Text('Europe'),
+                      onTap: () {
+                        country = 'EUR';
+                        getCurrencies();
+                      },
+                    ),
+                    ListTile(
+                      leading: new Icon(Icons.emoji_flags),
+                      title: new Text('United States of America'),
+                      onTap: () {
+                        country = 'USD';
+                        getCurrencies();
+                      },
                     ),
                   ],
                 ),
