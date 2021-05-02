@@ -46,7 +46,22 @@ class _MainPageState extends State<MainPage> {
           Column(
             children: [
               SizedBox(height: 17.0),
-              Text('Convencional ─ $symbol'),
+              Text('Convencional - $symbol'),
+              Container(
+                child: ListView.builder(
+                  itemCount: d.length,
+                  itemBuilder: (context, index) {
+                    var k = d.keys.toList();
+                    return ListTile(
+                      leading: Icon(Icons.emoji_flags),
+                      title: Text(d["BRL"]["buy"]),
+                      onTap: () {
+                        country = k[index];
+                      },
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ],
