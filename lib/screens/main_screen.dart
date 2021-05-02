@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-class MainPage extends StatelessWidget {
+// import 'package:http/http.dart' as http;
+
+// import 'dart:convert';
+
+class MainPage extends StatefulWidget {
   static var url = Uri.parse("https://blockchain.info/ticker");
 
-  void getCurrencies() async {
-    var res = await http.get(url);
-    Map<String, dynamic> data = json.decode(res.body);
-    print(data['BRL']['buy']);
-  }
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  // Future<Map<String, dynamic>> getCurrencies() async {
+  //   http.Response response = await http.get(MainPage.url);
+  //   Map<String, dynamic> data = json.decode(response.body);
+  //   return data;
+  // }
+
+  // var auxiliar = getCurrencies();
 
   @override
   Widget build(BuildContext context) {
@@ -17,21 +26,67 @@ class MainPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Cyptocurrency Converter'),
       ),
-      body: Column(
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Column(
             children: [
+              SizedBox(height: 17.0),
               Text('Crypto'),
-              Text('Convencional'),
-              TextButton(
-                onPressed: getCurrencies,
-                child: Text('R\$'),
-              ),
             ],
           ),
-          // ListView(),
+          Column(
+            children: [
+              SizedBox(height: 17.0),
+              Text('Convencional'),
+            ],
+          ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: ThemeData.dark().primaryColor,
+        foregroundColor: ThemeData.dark().accentColor,
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (BuildContext bc) {
+              return Container(
+                color: ThemeData.dark().primaryColor,
+                child: Wrap(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                        child: Container(
+                          height: 10,
+                          width: 70,
+                          color: ThemeData.dark().accentColor,
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                        leading: new Icon(Icons.emoji_flags),
+                        title: new Text('Brasil'),
+                        onTap: () => {}),
+                    ListTile(
+                      leading: new Icon(Icons.emoji_flags),
+                      title: new Text('England'),
+                      onTap: () => {},
+                    ),
+                    ListTile(
+                      leading: new Icon(Icons.emoji_flags),
+                      title: new Text('UK'),
+                      onTap: () => {},
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+        child: Icon(
+          Icons.arrow_upward,
+        ),
       ),
     );
   }
