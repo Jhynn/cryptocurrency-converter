@@ -73,9 +73,7 @@ class _MainPageState extends State<MainPage> {
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(
-                    height: 150,
-                  ),
+                  Expanded(child: Container()),
                   Image.asset(
                     '../../assets/images/Logo.png',
                     height: 100,
@@ -91,10 +89,12 @@ class _MainPageState extends State<MainPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text('Bitcoin (BTC)'),
-                            TextButton(
-                              child: Text(
-                                  '$currency - ${d["BTC"][currency] ?? ' 0'}'),
-                              onPressed: bottomSheet,
+                            Expanded(
+                              child: TextButton(
+                                child: Text(
+                                    '$currency - ${d["BTC"][currency] ?? ' 0'}'),
+                                onPressed: bottomSheet,
+                              ),
                             ),
                           ],
                         ),
@@ -111,10 +111,12 @@ class _MainPageState extends State<MainPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text('Ethereum (ETH)'),
-                            TextButton(
-                              child: Text(
-                                  '$currency - ${d["ETH"][currency] ?? ' 0'}'),
-                              onPressed: bottomSheet,
+                            Expanded(
+                              child: TextButton(
+                                child: Text(
+                                    '$currency - ${d["ETH"][currency] ?? ' 0'}'),
+                                onPressed: bottomSheet,
+                              ),
                             ),
                           ],
                         ),
@@ -131,10 +133,12 @@ class _MainPageState extends State<MainPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text('Monero (XRP)'),
-                            TextButton(
-                              child: Text(
-                                  '$currency - ${d["XRP"][currency] ?? ' 0'}'),
-                              onPressed: bottomSheet,
+                            Expanded(
+                              child: TextButton(
+                                child: Text(
+                                    '$currency - ${d["XRP"][currency] ?? ' 0'}'),
+                                onPressed: bottomSheet,
+                              ),
                             ),
                           ],
                         ),
@@ -145,7 +149,7 @@ class _MainPageState extends State<MainPage> {
                   DefaultTextStyle(
                     style: TextStyle(color: Colors.grey),
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 40),
+                      padding: const EdgeInsets.only(bottom: 5),
                       child: Column(
                         children: [
                           Text('Matheus Henrique Silva Miranda'),
@@ -155,7 +159,8 @@ class _MainPageState extends State<MainPage> {
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  Expanded(child: Container()),
                 ],
               ),
               floatingActionButton: FloatingActionButton(
